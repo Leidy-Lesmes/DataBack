@@ -10,12 +10,12 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from .forms import UploadFileForm
 from .utils import *
-from .utils import (cantidad_eventos_por_año, clean_csv_data,
-                    departamento_mas_movimientos_masa,
+from .utils import (cantidad_eventos_por_año, cantidad_eventos_por_mes,
+                    clean_csv_data, departamento_mas_movimientos_masa,
                     evento_con_mas_familias_afectadas_2019,
-                    evento_max_recursos_2019, graficar_eventos_por_mes,
-                    impacto_eventos_2019, porcentaje_eventos_por_ano,
-                    recursos_ejecutados_2019, top_5_eventos_naturales_2019,
+                    evento_max_recursos_2019, impacto_eventos_2019,
+                    porcentaje_eventos_por_ano, recursos_ejecutados_2019,
+                    top_5_eventos_naturales_2019,
                     top_departamentos_mayor_cantidad_eventos)
 
 
@@ -79,9 +79,9 @@ def dashboard(request):
             departamento_mas_movimientos_mas = departamento_mas_movimientos_masa(data_clean)
             total_recursos, porcentaje_kits_alimentos, porcentaje_materiales_construccion = recursos_ejecutados_2019(data_clean)
             evento_max_recursos, max_recursos = evento_max_recursos_2019(data_clean)
-            chart_eventos_por_mes = graficar_eventos_por_mes(data_clean)
+            chart_eventos_por_mes = cantidad_eventos_por_mes(data_clean)
             municipio_mas_familias_afectadas, departamento_mas_familias_afectadas, familias_afectadas = evento_con_mas_familias_afectadas_2019(data_clean)
-            chart_porcentaje_eventos_por_ano = porcentaje_eventos_por_ano(data_clean)
+            chart_porcentaje_eventos_por_ano = generate_pie_chart_eventos_por_año(data_clean)
 
             # Generar el gráfico del top de departamentos
             chart_top_departamentos = generate_chart_top_departamentos(data_clean)  # Asegúrate de tener esta función definida
@@ -103,7 +103,7 @@ def dashboard(request):
                 'porcentaje_materiales_construccion': porcentaje_materiales_construccion,
                 'evento_max_recursos': evento_max_recursos,
                 'max_recursos': max_recursos,
-                'chart_eventos_por_mes': chart_eventos_por_mes,
+                'chart_eventos_por_mes': generate_chart_eventos_por_mes(chart_eventos_por_mes),
                 'municipio_mas_familias_afectadas': municipio_mas_familias_afectadas,
                 'departamento_mas_familias_afectadas': departamento_mas_familias_afectadas,
                 'familias_afectadas': familias_afectadas,

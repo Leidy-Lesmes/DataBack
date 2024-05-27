@@ -4,92 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Agrega aquí tus estilos CSS si los necesitas -->
+    <!-- Agrega aquí tus estilos CSS -->
     <style>
-        /* Estilos CSS */
+
+        h1, h2 {
+            color: #007bff; /* Color azul */
+        }
+
+        /* Estilos CSS para el cuerpo */
+        body {
+            background-color: #ffffff; /* Fondo de color claro */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía */
+            margin: 0;
+            padding: 0;
+        }
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto; /* Centrar el contenedor */
+            padding: 20px;
+        }
+        /* Estilos CSS para las tarjetas */
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background-color: #fff; /* Fondo de las tarjetas */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para las tarjetas */
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #007bff; /* Color azul */
+            color: white; /* Texto blanco */
+            border-radius: 15px; /* Bordes redondeados */
+            padding: 20px;
+            flex: 1;
+            max-width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para las tarjetas */
+            text-align: center;
+        }
+        .card h2 {
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        /* Estilos CSS para las imágenes */
+        img {
+            display: block;
+            margin: 0 auto; /* Centrar la imagen */
+            max-width: 100%; /* Asegurar que la imagen no supere el ancho del contenedor */
+        }
     </style>
 </head>
 <body>
-    <h1>Dashboard</h1>
     
-    <!-- Resultados de las consultas -->
-
-    <!-- 1. Top 5 Departamentos con Mayor Cantidad de Eventos -->
-    <div>
-        <h2>Top 5 Departamentos con Mayor Cantidad de Eventos</h2>
-        <!-- Agrega aquí el gráfico generado -->
-        <img src="{{ chart_top_departamentos }}" alt="Gráfico de Top 5 Departamentos">
-    </div>
-
-    <!-- 2. Cantidad de Eventos por Año -->
-    <!-- 11. Cantidad de Eventos por Año (Gráfico de Barras) -->
-    <div>
-        <h2>Cantidad de Eventos por Año (Gráfico de Barras)</h2>
-        <!-- Agrega aquí el gráfico generado -->
-        <img src="{{ chart_eventos_por_año }}" alt="Gráfico de Eventos por Año">
-    </div>
-
-
-    <!-- 3. Top 5 Eventos Naturales en 2019 -->
-    <div>
-        <h2>Top 5 Eventos Naturales en 2019</h2>
-        <ul>
-            {% for evento, cantidad in top_5_eventos_naturales_2019.items %}
-            <li>{{ evento }}: {{ cantidad }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- 4. Impacto de Eventos en 2019 -->
-    <div>
+    <div class="container">
+        <h1 style="text-align: center;">Aquí tienes el informe del analisis de tus datos!</h1>
+        
+        <!-- Resultados de las consultas -->
+    
+        <!-- 1. Top 5 Departamentos con Mayor Cantidad de Eventos -->
+        <div>
+            <h2>Top 5 Departamentos con Mayor Cantidad de Eventos</h2>
+            <!-- Agrega aquí el gráfico generado -->
+            <img src="{{ chart_top_departamentos }}" alt="Gráfico de Top 5 Departamentos">
+        </div>
+    
+        <!-- 2. Cantidad de Eventos por Año -->
+        <div>
+            <h2>Cantidad de Eventos por Año (Gráfico de Barras)</h2>
+            <!-- Agrega aquí el gráfico generado -->
+            <img src="{{ chart_eventos_por_año }}" alt="Gráfico de Eventos por Año">
+        </div>
+    
+        <!-- 3. Top 5 Eventos Naturales en 2019 -->
+        <div>
+            <h2>Top 5 Eventos Naturales en 2019</h2>
+            <ul>
+                {% for evento, cantidad in top_5_eventos_naturales_2019.items %}
+                <li>{{ evento }}: {{ cantidad }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <!-- 4. Impacto de Eventos en 2019 -->
         <h2>Impacto de Eventos en 2019</h2>
-        <p>Evento con más fallecidos: {{ evento_mas_fallecidos }}</p>
-        <p>Evento con más heridos: {{ evento_mas_heridos }}</p>
-        <p>Evento con más hectáreas afectadas: {{ evento_mas_hectareas }}</p>
-    </div>
-
-    <!-- 5. Departamento con Mayor Cantidad de Movimientos en Masa -->
-    <div>
+    
+        <div class="card-container">
+            <div class="card">
+                <h2>Evento con más fallecidos</h2>
+                <p>{{ evento_mas_fallecidos }}</p>
+            </div>
+            <div class="card">
+                <h2>Evento con más heridos</h2>
+                <p>{{ evento_mas_heridos }}</p>
+            </div>
+            <div class="card">
+                <h2>Evento con más hectáreas afectadas</h2>
+                <p>{{ evento_mas_hectareas }}</p>
+            </div>
+        </div>
+    
+        <!-- 5. Departamento con Mayor Cantidad de Movimientos en Masa -->
         <h2>Departamento con Mayor Cantidad de Movimientos en Masa</h2>
-        <p>{{ departamento_mas_movimientos_mas }}</p>
-    </div>
-
-    <!-- 6. Recursos Ejecutados en 2019 -->
-    <div>
+        <div class="card-container">
+            <div class="card">
+                <p>{{ departamento_mas_movimientos_mas }}</p>
+            </div>
+        </div>
+    
+        <!-- 6. Recursos Ejecutados en 2019 -->
         <h2>Recursos Ejecutados en 2019</h2>
-        <p>Recursos totales: {{ total_recursos }}</p>
-        <p>Porcentaje de recursos para kits de alimentos: {{ porcentaje_kits_alimentos }}%</p>
-        <p>Porcentaje de recursos para materiales de construcción: {{ porcentaje_materiales_construccion }}%</p>
-    </div>
-
-    <!-- 7. Evento con Mayor Monto de Recursos en 2019 -->
-    <div>
+        <div class="card-container">
+            <div class="card">
+                <h2>Recursos totales:</h2>
+                <p> {{ total_recursos }}</p>
+            </div>
+            <div class="card">
+                <h2>Porcentaje de recursos para kits de alimentos:</h2>
+                <p> {{ porcentaje_kits_alimentos }}%</p>
+            </div>
+            <div class="card">
+                <h2>Porcentaje de recursos para materiales de construcción:</h2>
+                <p> {{ porcentaje_materiales_construccion }}%</p>
+            </div>
+        </div>
+    
+        <!-- 7. Evento con Mayor Monto de Recursos en 2019 -->
         <h2>Evento con Mayor Monto de Recursos en 2019</h2>
-        <p>Evento: {{ evento_max_recursos }}</p>
-        <p>Monto de recursos: {{ max_recursos }}</p>
-    </div>
-
-    <!-- 8. Cantidad de Eventos por Mes (2019-2021) -->
-    <div>
-        <h2>Cantidad de Eventos por Mes (2019-2021)</h2>
-        <!-- Agrega aquí el gráfico generado -->
-        <img src="{{ chart_eventos_por_mes }}" alt="Gráfico de Eventos por Mes">
-    </div>
-
-    <!-- 9. Evento con Mayor Cantidad de Familias Afectadas en 2019 -->
-    <div>
+        <div class="card-container">
+            <div class="card">
+                <h2>Evento:</h2>
+                <p> {{ evento_max_recursos }}</p>
+            </div>
+            <div class="card">
+                <h2>Monto de recursos:</h2>
+                <p> {{ max_recursos }}</p>
+            </div>
+        </div>
+        
+    
+        <!-- 8. Cantidad de Eventos por Mes (2019-2021) -->
+        <div>
+            <h2>Cantidad de Eventos por Mes (2019-2021)</h2>
+            <!-- Agrega aquí el gráfico generado -->
+            <img src="{{ chart_eventos_por_mes }}" alt="Gráfico de Eventos por Mes">
+        </div>
+    
+        <!-- 9. Evento con Mayor Cantidad de Familias Afectadas en 2019 -->
         <h2>Evento con Mayor Cantidad de Familias Afectadas en 2019</h2>
-        <p>Municipio: {{ municipio_mas_familias_afectadas }}</p>
-        <p>Departamento: {{ departamento_mas_familias_afectadas }}</p>
-        <p>Familias afectadas: {{ familias_afectadas }}</p>
+        <div class="card-container">
+            <div class="card">
+                <h2>Municipio:</h2>
+                <p> {{ municipio_mas_familias_afectadas }}</p>
+            </div>
+            <div class="card">
+                <h2>Departamento: </h2>
+                <p>{{ departamento_mas_familias_afectadas }}</p>
+            </div>
+            <div class="card">
+                <h2>Familias afectadas:</h2>
+                <p> {{ familias_afectadas }}</p>
+            </div>
+        </div>
+        <!-- 10. Porcentaje de Eventos por Año -->
+        <div>
+            <h2>Porcentaje de Eventos por Año</h2>
+            <!-- Agrega aquí el gráfico generado -->
+            <img src="{{ chart_porcentaje_eventos_por_ano }}" alt="Gráfico de Porcentaje de Eventos por Año">
+        </div>
     </div>
-
-    <!-- 10. Porcentaje de Eventos por Año -->
-    <div>
-        <h2>Porcentaje de Eventos por Año</h2>
-        <!-- Agrega aquí el gráfico generado -->
-        <img src="{{ chart_porcentaje_eventos_por_ano }}" alt="Gráfico de Porcentaje de Eventos por Año">
-    </div>
-
 </body>
 </html>
+

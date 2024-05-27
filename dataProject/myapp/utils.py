@@ -77,7 +77,34 @@ def evento_max_recursos_2019(data_clean):
     max_recursos = recursos_por_evento.max()
     return evento_max_recursos, max_recursos
 
-def graficar_eventos_por_mes(data_clean):
+def generate_chart_eventos_por_mes(eventos_por_mes):
+    fig, ax = plt.subplots()
+    eventos_por_mes.plot(kind='bar', ax=ax)
+    ax.set_xlabel('Mes')
+    ax.set_ylabel('Cantidad de Eventos')
+    ax.set_title('Cantidad de Eventos por Mes (2019-2021)')
+    
+    # Mejorar las etiquetas del eje x
+    ax.set_xticklabels(eventos_por_mes.index.strftime('%Y-%m'), rotation=45, ha='right')
+
+    # Ajustar el diseño para evitar superposiciones
+    fig.tight_layout()
+
+    # Guardar la figura en un objeto BytesIO
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # Codificar la imagen en base64
+    chart_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    chart = f"data:image/png;base64,{chart_image}"
+
+    # Cerrar la figura para liberar memoria
+    plt.close(fig)
+
+    return chart
+
+def cantidad_eventos_por_mes(data_clean):
     data_periodo = data_clean[(data_clean['FECHA'].dt.year >= 2019) & (data_clean['FECHA'].dt.year <= 2021)]
     eventos_por_mes = data_periodo['FECHA'].dt.to_period('M').value_counts().sort_index()
     return eventos_por_mes
@@ -89,6 +116,21 @@ def evento_con_mas_familias_afectadas_2019(data_clean):
     departamento = evento_max_familias['DEPARTAMENTO']
     familias_afectadas = evento_max_familias['FAMILIAS']
     return municipio, departamento, familias_afectadas
+
+def generate_pie_chart_eventos_por_año(data_clean):
+    eventos_por_año = porcentaje_eventos_por_ano(data_clean)
+    fig, ax = plt.subplots()
+    ax.pie(eventos_por_año, labels=eventos_por_año.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax.set_title('Porcentaje de Eventos por Año')
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    chart_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    chart = f"data:image/png;base64,{chart_image}"
+    plt.close(fig)  # Cerrar la figura para liberar memoria
+    return chart
+
 
 def porcentaje_eventos_por_ano(data_clean):
     data_clean['ANO'] = data_clean['FECHA'].dt.year
