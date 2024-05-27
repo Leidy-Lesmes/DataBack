@@ -7,7 +7,7 @@
     <!-- Agrega aquí tus estilos CSS -->
     <style>
 
-        h1, h2 {
+        h1 {
             color: #007bff; /* Color azul */
         }
 
@@ -17,6 +17,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía */
             margin: 0;
             padding: 0;
+        }
+
+        .graph {
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+            margin-bottom: 20px; /* Espacio entre los gráficos */
         }
         /* Contenedor principal */
         .container {
@@ -72,14 +78,14 @@
         <div>
             <h2>Top 5 Departamentos con Mayor Cantidad de Eventos</h2>
             <!-- Agrega aquí el gráfico generado -->
-            <img src="{{ chart_top_departamentos }}" alt="Gráfico de Top 5 Departamentos">
+            <img class="graph" src="{{ chart_top_departamentos }}" alt="Gráfico de Top 5 Departamentos">
         </div>
     
         <!-- 2. Cantidad de Eventos por Año -->
         <div>
-            <h2>Cantidad de Eventos por Año (Gráfico de Barras)</h2>
+            <h2>Cantidad de Eventos por Año</h2>
             <!-- Agrega aquí el gráfico generado -->
-            <img src="{{ chart_eventos_por_año }}" alt="Gráfico de Eventos por Año">
+            <img class="graph" src="{{ chart_eventos_por_año }}" alt="Gráfico de Eventos por Año">
         </div>
     
         <!-- 3. Top 5 Eventos Naturales en 2019 -->
@@ -153,7 +159,7 @@
         <div>
             <h2>Cantidad de Eventos por Mes (2019-2021)</h2>
             <!-- Agrega aquí el gráfico generado -->
-            <img src="{{ chart_eventos_por_mes }}" alt="Gráfico de Eventos por Mes">
+            <img class="graph" src="{{ chart_eventos_por_mes }}" alt="Gráfico de Eventos por Mes">
         </div>
     
         <!-- 9. Evento con Mayor Cantidad de Familias Afectadas en 2019 -->
@@ -176,7 +182,7 @@
         <div>
             <h2>Porcentaje de Eventos por Año</h2>
             <!-- Agrega aquí el gráfico generado -->
-            <img src="{{ chart_porcentaje_eventos_por_ano }}" alt="Gráfico de Porcentaje de Eventos por Año">
+            <img class="graph" src="{{ chart_porcentaje_eventos_por_ano }}" alt="Gráfico de Porcentaje de Eventos por Año">
         </div>
     </div>
 </body>
